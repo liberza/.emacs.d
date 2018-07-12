@@ -61,7 +61,7 @@
             (t nil)))
 
 (when my-preferred-font
-    (add-to-list 'default-frame-alist '(font . "SourceCodePro-10")))
+  (set-frame-font my-preferred-font nil t))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
