@@ -53,8 +53,8 @@
 
 
 ; configuration
-(evil-leader/set-key-for-mode 'org-mode
-                              "oI" 'org-display-inline-images)
+;(evil-leader/set-key-for-mode 'org-mode
+;                              "oI" 'org-display-inline-images)
 
 (add-to-list 'default-frame-alist '(font . "SourceCodePro-10"))
 
