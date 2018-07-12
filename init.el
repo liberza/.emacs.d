@@ -55,8 +55,13 @@
 ; configuration
 ;(evil-leader/set-key-for-mode 'org-mode
 ;                              "oI" 'org-display-inline-images)
+(setq my-preferred-font
+      (cond ((eq system-type 'windows-nt) "Source Code Variable-10")
+            ((eq system-type 'gnu/linux) "SourceCodePro-10")
+            (t nil)))
 
-(add-to-list 'default-frame-alist '(font . "SourceCodePro-10"))
+(when my-preferred-font
+    (add-to-list 'default-frame-alist '(font . "SourceCodePro-10")))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
