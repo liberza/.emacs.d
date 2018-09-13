@@ -1,0 +1,91 @@
+;;; -*- coding: utf-8 -*-
+(("/home/nick/projects/ex_nmap/lib/ex_nmap.ex" . 567)
+ ("/home/nick/projects/ex_nmap/lib/scanner/scanner.ex" . 170)
+ ("/home/nick/projects/ex_nmap/lib/parser/parser.ex" . 5754)
+ ("/home/nick/projects/monorail/lib/messagebus.ex" . 108)
+ ("/home/nick/projects/monorail/test/monorail_test.exs" . 136)
+ ("/home/nick/projects/monorail/README.md" . 500)
+ ("/home/nick/projects/ranch_test/lib/ranch_test.ex" . 237)
+ ("/home/nick/projects/ranch_test/lib/ranch_test_worker.ex" . 79)
+ ("/home/nick/projects/monorail/lib/monorail/enums.ex" . 243)
+ ("/home/nick/projects/ranch_test/mix.exs" . 309)
+ ("/home/nick/projects/monorail/lib/monorail/client.ex" . 278)
+ ("/home/nick/projects/ranch_test/lib/ranch_test/application.ex" . 591)
+ ("/home/nick/projects/monorail/lib/messagebus/listener.ex" . 38)
+ ("/home/nick/projects/monorail/lib/messagebus/header.ex" . 169)
+ ("/home/nick/projects/ranch_test/lib/ranch_test_handler.ex" . 502)
+ ("/home/nick/projects/monorail/lib/messagebus/message.ex" . 507)
+ ("/home/nick/projects/monorail/mix.exs" . 312)
+ ("/home/nick/projects/monorail/lib/monorail/application.ex" . 409)
+ ("/home/nick/projects/monorail/lib/monorail/types.ex" . 19)
+ ("/home/nick/projects/monorail/lib/monorail/format.ex" . 2179)
+ ("/home/nick/projects/monorail/lib/monorail/message_handler.ex" . 501)
+ ("/home/nick/projects/monorail/lib/messagebus/variable.ex" . 2110)
+ ("https://elixirschool.com/en/lessons/advanced/umbrella-projects/" . 715)
+ ("/home/nick/Documents/speech.txt" . 1156)
+ ("/home/nick/projects/monorail/lib/messagebus/payload.ex" . 1127)
+ ("/home/nick/Documents/cooking/chicken_parm.txt" . 1906)
+ ("/home/nick/Documents/cooking/chicken_parm.org" . 716)
+ ("/home/nick/projects/ex_nmap/test_fixtures/google_version_os.xml" . 33328)
+ ("/home/nick/projects/ex_nmap/test_fixtures/"
+  (dired-filename . "/home/nick/projects/ex_nmap/test_fixtures/.."))
+ ("/home/nick/projects/ex_nmap/nmap.dtd" . 9935)
+ ("/home/nick/projects/ex_nmap/lib/scanner/"
+  (dired-filename . "/home/nick/projects/ex_nmap/lib/scanner/.."))
+ ("/home/nick/projects/ex_nmap/lib/"
+  (dired-filename . "/home/nick/projects/ex_nmap/lib/.."))
+ ("/home/nick/projects/efp/gallows/lib/gallows/"
+  (dired-filename . "/home/nick/projects/efp/gallows/lib/gallows/.."))
+ ("/home/nick/projects/efp/gallows/lib/"
+  (dired-filename . "/home/nick/projects/efp/gallows/lib/.."))
+ ("/home/nick/projects/efp/gallows/"
+  (dired-filename . "/home/nick/projects/efp/gallows/.."))
+ ("/home/nick/projects/efp/hangman/lib/hangman/"
+  (dired-filename . "/home/nick/projects/efp/hangman/lib/hangman/.."))
+ ("/home/nick/projects/efp/hangman/lib/"
+  (dired-filename . "/home/nick/projects/efp/hangman/lib/.."))
+ ("/home/nick/projects/efp/hangman/"
+  (dired-filename . "/home/nick/projects/efp/hangman/.."))
+ ("/home/nick/projects/efp/text_client/lib/text_client/interact.ex" . 69)
+ ("/home/nick/projects/efp/text_client/lib/text_client/"
+  (dired-filename . "/home/nick/projects/efp/text_client/lib/text_client/.."))
+ ("/home/nick/projects/efp/text_client/lib/"
+  (dired-filename . "/home/nick/projects/efp/text_client/lib/.."))
+ ("/home/nick/projects/efp/text_client/"
+  (dired-filename . "/home/nick/projects/efp/text_client/.."))
+ ("/home/nick/projects/efp/"
+  (dired-filename . "/home/nick/projects/efp/.."))
+ ("/home/nick/projects/"
+  (dired-filename . "/home/nick/projects/ex_nmap"))
+ ("/home/nick/projects/ex_nmap/"
+  (dired-filename . "/home/nick/projects/ex_nmap/README.org"))
+ ("/home/nick/projects/ex_nmap/README.org" . 10)
+ ("/home/nick/Documents/camping/neddick.org" . 210)
+ ("/home/nick/org/notes.org" . 173)
+ ("/home/nick/projects/ex_nmap/lib/options/options.ex" . 27)
+ ("/home/nick/projects/ex_nmap/mix.exs" . 34)
+ ("/home/nick/.viminfo" . 40283)
+ ("/home/nick/Documents/grocery/2018-01-27-condensed.txt" . 5)
+ ("/home/nick/Documents/grocery/grocery_template.org" . 62)
+ ("/home/nick/org/test.org" . 444)
+ ("/home/nick/org/pcb.org" . 55)
+ ("/home/nick/org/lisp.org" . 1102)
+ ("/home/nick/Downloads/atgui.cpp" . 40477)
+ ("/home/nick/Downloads/ATMESSAGES.H" . 6951)
+ ("/home/nick/Downloads/atnodglb.h" . 10913)
+ ("/home/nick/org/dasim.org" . 14)
+ ("/home/nick/org/admis.org" . 395)
+ ("/home/nick/Downloads/Atglobal.h" . 8153)
+ ("/home/nick/.emacs.d/init.el" . 1787)
+ ("/home/nick/ti/uniflash_4.3.0/deskdb/content/TICloudAgent/linux/ccs_base/common/targetdb/devices/cc2652r1f.xml" . 56)
+ ("/home/nick/ti/uniflash_4.3.0/docs/license.txt" . 3872)
+ ("/home/nick/ti/uniflash_4.3.0/deskdb/content/TICloudAgent/linux/ticloudagent/setup/install.sh" . 1597)
+ ("/home/nick/ti/uniflash_4.3.0/deskdb/dinfra_resource.json.gz" . 376214)
+ ("/home/nick/ti/uniflash_4.3.0/deskdb/"
+  (dired-filename . "/home/nick/ti/uniflash_4.3.0/deskdb/dinfra_resource.json.gz"))
+ ("/home/nick/src/ccs/CCS8.1.0.00011_linux-x64/binary/com.ti.ccstudio.installer.linux64_root.gtk.linux.x86_64_8.1.0.00011" . 192)
+ ("/home/nick/Documents/weekly.txt" . 80)
+ ("/home/nick/Downloads/Cadence/launchxl-cc26x2r1.opj" . 1898)
+ ("/home/nick/Downloads/PCB/LAUNCHXL-CC26X2R1.ipc" . 56756)
+ ("/home/nick/projects/at_renovate/ideas.txt" . 163)
+ ("/home/nick/projects/at_renovate/atgraph/lib/atgraph.ex" . 3351))

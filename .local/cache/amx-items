@@ -1,0 +1,33 @@
+
+;; ----- amx-history -----
+(
+ neotree-create-node
+ neotree-refresh
+ alchemist-iex-project-run
+ alchemist-iex-run
+ org-agenda
+ neotree-hidden-file-toggle
+ neotree
+)
+
+;; ----- amx-data -----
+(
+ (neotree . 5)
+ (neotree-dir . 3)
+ (cd . 1)
+ (+doom-dashboard/open . 1)
+ (+doom-dashboard-mode . 1)
+ (treemacs . 2)
+ (treemacs-add-project . 2)
+ (neotree-toggle . 1)
+ (doom/open-manual . 1)
+ (org-display-inline-images . 1)
+ (doom/reload . 6)
+ (org-todo . 1)
+ (neotree-hidden-file-toggle . 2)
+ (org-agenda . 1)
+ (alchemist-iex-run . 4)
+ (alchemist-iex-project-run . 3)
+ (neotree-refresh . 2)
+ (neotree-create-node . 2)
+)
