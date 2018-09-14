@@ -20,6 +20,7 @@
 (setq use-package-always-ensure t)
 
 ; Package definitions
+(use-package diminish)
 (use-package all-the-icons
   :defer t)
 
@@ -37,17 +38,23 @@
              (setq evil-split-window-below t)
              (setq evil-shift-round nil)
              (setq evil-want-C-u-scroll t)
+    	     (setq evil-want-keybinding nil)
              :config
              (evil-mode 1)
              (setq evil-emacs-state-modes nil)
              (setq evil-insert-state-modes nil)
              (setq evil-motion-state-modes nil))
-;             (use-package evil-leader
-;	       :config
-;	       (setq evil-leader/in-all-states t)
-;	       (evil-leader/set-leader " ")
-;	       (global-evil-leader-mode)))
 
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+
+(define-key evil-motion-state-map  (kbd "C-h") #'evil-window-left)
+(define-key evil-motion-state-map  (kbd "C-j") #'evil-window-down)
+(define-key evil-motion-state-map  (kbd "C-k") #'evil-window-up)
+(define-key evil-motion-state-map  (kbd "C-l") #'evil-window-right)
 
 (use-package smooth-scrolling
   :config
@@ -83,18 +90,33 @@
 (use-package treemacs)
 (use-package treemacs-evil)
 
+(use-package ivy
+  :ensure t
+  :diminish (ivy-mode . "")
+  :init (ivy-mode 1)
+  :config
+  ;(setq ivy-use-virtual-buffers t)
+  ;(setq ivy-height 20)
+  ;(setq ivy-count-format "(%d/%d) ")
+)
+
+(use-package counsel :ensure t)
+
 ;; Which Key
 (use-package which-key
   :ensure t
   :init
+  (which-key-mode 1)
+  :config
   (setq which-key-separator " ")
   (setq which-key-prefix-prefix "+")
-  :config
-  (which-key-mode 1))
+  :diminish which-key-mode)
+
 
 (use-package general
   :ensure t
   :config 
+  (general-evil-setup t)
   (setq general-override-states '(insert
                                   emacs
                                   hybrid
@@ -104,38 +126,44 @@
                                   operator
                                   replace))
   (general-override-mode)
-  (general-define-key
-    :states '(normal visual motion)
-    :keymaps 'override
-    "SPC" 'hydra-space/body))
   
-;  (general-define-key
-;            :states '(normal visual insert emacs)
-;            :prefix "SPC"
-;            :non-normal-prefix "M-SPC"
-;            ;; "/" '(counsel-rg :which-key "riggrep") ; need counsel
-;            "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
-;            "SPC" '(helm-M-x :which-key "M-x")
-;            "pf"  '(helm-find-files :which-key "find files")
-;            ;; Buffers
-;            "bb"  '(helm-buffers-list :which-key "buffers list")
-;            ;; Window
-;            "wl"  '(windmove-right :which-key "move right")
-;            "wh"  '(windmove-left :which-key "move left")
-;            "wj"  '(windmove-down :which-key "move down")
-;            "wk"  '(windmove-up :which-key "move up")
-;            "w/"  '(split-window-right :which-key "split right")
-;            "w-"  '(split-window-below :which-key "split below")
-;            "wx"  '(delete-window :which-key "delete window")
-;            ;; Others
-;            "ot"  '(ansi-term :which-key "open terminal"))
-;  (general-define-key
-;    :states '(normal visual insert emacs)
-;)
+  (general-define-key
+   :states '(normal visual motion emacs)
+   :keymaps 'override
+   :prefix "SPC"
+   :non-normal-prefix "C-SPC"
+   "" nil
+   ;; "/" '(counsel-rg :which-key "riggrep") ; need counsel
+   "SPC" '(counsel-M-x :which-key "M-x")
+   ;"pf"  '(helm-find-files :which-key "find files")
+   ;; Buffers
+   "b"   '(:ignore t :which-key "buffers")
+   "bx"  '(kill-buffer-and-window :which-key "kill buffer / window")
+   "bb"  '(ivy-switch-buffer :which-key "switch buffer")
+   "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+   ;; Window
+   "w"   '(:ignore t :which-key "window")
+   "w/"  '(split-window-right :which-key "split right")
+   "w-"  '(split-window-below :which-key "split below")
+   "wx"  '(delete-window :which-key "delete window")
+   ;; Git
+   "g"   '(:ignore t :which-key "git")
+   "gs"  '(magit-status :which-key "git status")
+   ;; Avy
+   "a"   '(:ignore t :which-key "avy")
+   "al"  '(evil-avy-goto-line :which-key "goto-line")
+   "ac"  '(evil-avy-goto-char :which-key "goto-char")
+   ;; Other
+   "o"   '(:ignore t :which-key "other")
+   "oe"  '(eval-buffer :which-key "eval-buffer")
+   ;"ot"  '(ansi-term :which-key "open terminal"))
+   )
+)
 
 ; configuration
 ;(evil-leader/set-key-for-mode 'org-mode
 ;                              "oI" 'org-display-inline-images)
+
 (setq my-preferred-font
       (cond ((eq system-type 'windows-nt) "Source Code Variable-10")
             ((eq system-type 'gnu/linux) "SourceCodePro-10")
@@ -153,3 +181,17 @@
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (evil-collection which-key use-package treemacs-evil smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
