@@ -151,8 +151,11 @@
    "gd"  '(magit-diff :which-key "diff")
    "gl"  '(magit-log :which-key "log")
    "gb"  '(magit-blame :which-key "blame")
-   "gn"  '(magit-blob-next :which-key "next blob")
-   "gp"  '(magit-blob-previous :which-key "prev blob")
+   "gp"  '(magit-push-to-remote :which-key "push")
+   "gP"  '(magit-pull :which-key "pull")
+   "gf"  '(magit-fetch :which-key "fetch")
+   ;"gn"  '(magit-blob-next :which-key "next blob")
+   ;"gp"  '(magit-blob-previous :which-key "prev blob")
    ;; Avy
    "a"   '(:ignore t :which-key "avy")
    "al"  '(evil-avy-goto-line :which-key "goto-line")
