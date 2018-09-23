@@ -163,7 +163,9 @@
    ;; Other
    "o"   '(:ignore t :which-key "org")
    "oc"  '(counsel-org-capture :which-key "org-capture")
-   "of"  '(counsel-org-capture-finalize :which-key "org-capture-finalize")
+   "oa"  '(org-agenda :which-key "org-agenda")
+   "ol"  '(org-store-link :which-key "org-store-link")
+   "ob"  '(org-switchb :which-key "org-switchb")
    "e"  '(eval-buffer :which-key "eval-buffer")
    "p"  '(treemacs :which-key "treemacs")
    ;"ot"  '(ansi-term :which-key "open terminal"))
@@ -173,12 +175,31 @@
 (use-package org
   :ensure org-plus-contrib)
 
-(setq org-capture-templates '(("t" "Todo [inbox]" entry
-                               (file+headline "~/org/notes/inbox.org" "Tasks")
-                               "* TODO %i%?")
-                              ("R" "Reminder" entry
-                               (file+headline "~/notes/reminder.org" "Reminder")
+(setq org-agenda-start-on-weekday 0)
+
+(setq org-agenda-files '("~/org/notes/inbox.org"
+                         "~/org/notes/projects.org"
+                         "~/org/notes/reminder.org"))
+
+(setq org-capture-templates '(("t" "Task [inbox]" entry
+                               (file+olp+datetree "~/org/notes/inbox.org" "Tasks")
+                               "* TODO %i%?" :tree-type week)
+                              ("n" "Note [inbox]" entry
+                               (file+olp+datetree "~/org/notes/inbox.org" "Notes")
+                               "* %i%?")
+                              ("r" "Reminder" entry
+                               (file+headline "~/org/notes/reminder.org" "Reminders")
                                "* %i%? \n %U")))
+
+(setq org-refile-targets '(("~/org/notes/projects.org" :maxlevel . 3)
+                           ("~/org/notes/someday.org" :level . 1)
+                           ("~/org/notes/reminder.org" :maxlevel .2)))
+
+(setq org-refile-use-outline-path 'file)
+
+(setq org-outline-path-complete-in-steps nil)
+
+(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 
 (use-package evil-org
   :ensure t
@@ -187,15 +208,14 @@
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'evil-org-mode-hook
             (lambda ()
-              (evil-org-set-key-theme)))
+              (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))))
   (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
-
+  (evil-org-agenda-set-keys)
+  (define-key evil-motion-state-map  (kbd "C-h") #'evil-window-left)
+  (define-key evil-motion-state-map  (kbd "C-j") #'evil-window-down)
+  (define-key evil-motion-state-map  (kbd "C-k") #'evil-window-up)
+  (define-key evil-motion-state-map  (kbd "C-l") #'evil-window-right))
 ; Overwrite some evil-org keys
-(define-key evil-motion-state-map  (kbd "C-h") #'evil-window-left)
-(define-key evil-motion-state-map  (kbd "C-j") #'evil-window-down)
-(define-key evil-motion-state-map  (kbd "C-k") #'evil-window-up)
-(define-key evil-motion-state-map  (kbd "C-l") #'evil-window-right)
 
 ; configuration
 ;(evil-leader/set-key-for-mode 'org-mode
