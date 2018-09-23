@@ -51,10 +51,6 @@
   :config
   (evil-collection-init))
 
-(define-key evil-motion-state-map  (kbd "C-h") #'evil-window-left)
-(define-key evil-motion-state-map  (kbd "C-j") #'evil-window-down)
-(define-key evil-motion-state-map  (kbd "C-k") #'evil-window-up)
-(define-key evil-motion-state-map  (kbd "C-l") #'evil-window-right)
 
 (use-package smooth-scrolling
   :config
@@ -148,17 +144,55 @@
    "wx"  '(delete-window :which-key "delete window")
    ;; Git
    "g"   '(:ignore t :which-key "git")
-   "gs"  '(magit-status :which-key "git status")
+   "gg"  '(magit-status :which-key "status")
+   "gs"  '(magit-stage :which-key "stage")
+   "gu"  '(magit-unstage :which-key "unstage")
+   "gc"  '(magit-commit :which-key "commit")
+   "gd"  '(magit-diff :which-key "diff")
+   "gl"  '(magit-log :which-key "log")
+   "gb"  '(magit-blame :which-key "blame")
+   "gn"  '(magit-blob-next :which-key "next blob")
+   "gp"  '(magit-blob-previous :which-key "prev blob")
    ;; Avy
    "a"   '(:ignore t :which-key "avy")
    "al"  '(evil-avy-goto-line :which-key "goto-line")
    "ac"  '(evil-avy-goto-char :which-key "goto-char")
    ;; Other
-   "o"   '(:ignore t :which-key "other")
-   "oe"  '(eval-buffer :which-key "eval-buffer")
+   "o"   '(:ignore t :which-key "org")
+   "oc"  '(counsel-org-capture :which-key "org-capture")
+   "of"  '(counsel-org-capture-finalize :which-key "org-capture-finalize")
+   "e"  '(eval-buffer :which-key "eval-buffer")
+   "p"  '(treemacs :which-key "treemacs")
    ;"ot"  '(ansi-term :which-key "open terminal"))
    )
 )
+
+(use-package org
+  :ensure org-plus-contrib)
+
+(setq org-capture-templates '(("t" "Todo [inbox]" entry
+                               (file+headline "~/org/notes/inbox.org" "Tasks")
+                               "* TODO %i%?")
+                              ("R" "Reminder" entry
+                               (file+headline "~/notes/reminder.org" "Reminder")
+                               "* %i%? \n %U")))
+
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+
+; Overwrite some evil-org keys
+(define-key evil-motion-state-map  (kbd "C-h") #'evil-window-left)
+(define-key evil-motion-state-map  (kbd "C-j") #'evil-window-down)
+(define-key evil-motion-state-map  (kbd "C-k") #'evil-window-up)
+(define-key evil-motion-state-map  (kbd "C-l") #'evil-window-right)
 
 ; configuration
 ;(evil-leader/set-key-for-mode 'org-mode
@@ -188,7 +222,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-collection which-key use-package treemacs-evil smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
+    (org-plus-contrib ox-taskjuggler evil-collection which-key use-package treemacs-evil smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
