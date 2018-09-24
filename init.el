@@ -142,6 +142,10 @@
    "w/"  '(split-window-right :which-key "split right")
    "w-"  '(split-window-below :which-key "split below")
    "wx"  '(delete-window :which-key "delete window")
+   "wh"  '(evil-window-left :which-key "left")
+   "wj"  '(evil-window-down :which-key "down")
+   "wk"  '(evil-window-up :which-key "up")
+   "wl"  '(evil-window-right :which-key "right")
    ;; Git
    "g"   '(:ignore t :which-key "git")
    "gg"  '(magit-status :which-key "status")
@@ -210,11 +214,12 @@
             (lambda ()
               (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))))
   (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys)
-  (define-key evil-motion-state-map  (kbd "C-h") #'evil-window-left)
-  (define-key evil-motion-state-map  (kbd "C-j") #'evil-window-down)
-  (define-key evil-motion-state-map  (kbd "C-k") #'evil-window-up)
-  (define-key evil-motion-state-map  (kbd "C-l") #'evil-window-right))
+  (evil-org-agenda-set-keys))
+
+(use-package org-download
+  :ensure t)
+
+(setq org-image-actual-width (/ (display-pixel-width) 3))
 ; Overwrite some evil-org keys
 
 ; configuration
@@ -245,7 +250,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (org-plus-contrib ox-taskjuggler evil-collection which-key use-package treemacs-evil smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
+    (org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package treemacs-evil smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
