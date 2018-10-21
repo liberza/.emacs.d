@@ -64,11 +64,16 @@
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 (use-package magit)
+(use-package git-gutter
+  :ensure t
+  :config
+  (global-git-gutter-mode +1))
 
 (use-package alchemist
   :defer t
   :config
   (add-to-list 'auto-mode-alist '("\\.ex\\'" . elixir-mode))
+ 
   (add-to-list 'auto-mode-alist '("\\.exs\\'" . elixir-mode))
   (add-to-list 'auto-mode-alist '("\\.eex\\'" . elixir-mode)))
 
@@ -82,6 +87,12 @@
     (setq company-tooltip-align-annotations t
 	  company-show-numbers t)
     (setq company-dabbrev-downcase nil)))
+
+(use-package elm-mode
+  :ensure t)
+
+(use-package rust-mode
+  :ensure t)
 
 (use-package treemacs)
 (use-package treemacs-evil)
@@ -149,8 +160,8 @@
    ;; Git
    "g"   '(:ignore t :which-key "git")
    "gg"  '(magit-status :which-key "status")
-   "gs"  '(magit-stage :which-key "stage")
-   "gu"  '(magit-unstage :which-key "unstage")
+   "gS"  '(magit-stage :which-key "stage file")
+   "gU"  '(magit-unstage :which-key "unstage file")
    "gc"  '(magit-commit :which-key "commit")
    "gd"  '(magit-diff :which-key "diff")
    "gl"  '(magit-log :which-key "log")
@@ -158,6 +169,11 @@
    "gp"  '(magit-push-to-remote :which-key "push")
    "gP"  '(magit-pull :which-key "pull")
    "gf"  '(magit-fetch :which-key "fetch")
+   "gj"  '(git-gutter:next-hunk :which-key "next hunk")
+   "gk"  '(git-gutter:previous-hunk :which-key "previous hunk")
+   "gs"  '(git-gutter:stage-hunk :which-key "stage hunk")
+   "gr"  '(git-gutter:stage-hunk :which-key "revert hunk")
+   "gm"  '(git-gutter:stage-hunk :which-key "mark hunk")
    ;"gn"  '(magit-blob-next :which-key "next blob")
    ;"gp"  '(magit-blob-previous :which-key "prev blob")
    ;; Avy
@@ -250,7 +266,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package treemacs-evil smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
+    (elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package treemacs-evil smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
