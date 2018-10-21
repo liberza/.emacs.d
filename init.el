@@ -268,7 +268,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package treemacs-evil smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
+    (git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package treemacs-evil smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
