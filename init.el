@@ -67,7 +67,8 @@
 (use-package git-gutter
   :ensure t
   :config
-  (global-git-gutter-mode +1))
+  (global-git-gutter-mode +1)
+  (setq git-gutter:update-interval 2))
 
 (use-package alchemist
   :defer t
