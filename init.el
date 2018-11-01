@@ -96,9 +96,6 @@
 (use-package rust-mode
   :ensure t)
 
-(use-package treemacs)
-(use-package treemacs-evil)
-
 (use-package ivy
   :ensure t
   :diminish (ivy-mode . "")
@@ -189,7 +186,6 @@
    "ol"  '(org-store-link :which-key "org-store-link")
    "ob"  '(org-switchb :which-key "org-switchb")
    "e"  '(eval-buffer :which-key "eval-buffer")
-   "p"  '(treemacs :which-key "treemacs")
    ;"ot"  '(ansi-term :which-key "open terminal"))
    )
 )
@@ -268,7 +264,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package treemacs-evil smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
+    (git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
