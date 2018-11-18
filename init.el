@@ -71,6 +71,15 @@
   (setq git-gutter:update-interval 2)
   (setq git-gutter:ask-p nil))
 
+(use-package git-timemachine
+  :ensure t)
+
+(use-package anaconda-mode
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+
 (use-package alchemist
   :defer t
   :config
@@ -91,6 +100,21 @@
     (setq company-dabbrev-downcase nil)))
 
 (use-package elm-mode
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-elm))
+
+(use-package csharp-mode
+  :ensure t)
+
+(use-package omnisharp
+  :ensure t
+  :hook ((csharp-mode . omnisharp-mode)
+         (before-save . omnisharp-code-format-entire-file))
+  :config
+  (add-to-list 'company-backends 'company-omnisharp))
+
+(use-package fsharp-mode
   :ensure t)
 
 (use-package rust-mode
@@ -186,7 +210,7 @@
    "ol"  '(org-store-link :which-key "org-store-link")
    "ob"  '(org-switchb :which-key "org-switchb")
    "e"  '(eval-buffer :which-key "eval-buffer")
-   ;"ot"  '(ansi-term :which-key "open terminal"))
+   "ot"  '(ansi-term :which-key "open terminal")
    )
 )
 
@@ -217,7 +241,10 @@
 
 (setq org-outline-path-complete-in-steps nil)
 
-(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "WORKING(W)" "|" "DONE(d)" "CANCELLED(c)")))
+
+(use-package projectile
+  :ensure t)
 
 (use-package evil-org
   :ensure t
@@ -242,13 +269,16 @@
 
 (setq my-preferred-font
       (cond ((eq system-type 'windows-nt) "Source Code Variable-10")
-            ((eq system-type 'gnu/linux) "SourceCodePro-10")
+            ((eq system-type 'gnu/linux) "Iosevka-13")
             (t nil)))
 
 (when my-preferred-font
   (set-frame-font my-preferred-font nil t))
 
+(setq js-indent-level 4)
 (setq tab-width 4)
+(setq default-tab-width 4)
+(setq-default indent-tabs-mode nil)
 (setq indent-tabs-mode nil)
 (setq show-paren-delay 0)
 (show-paren-mode 1)
@@ -264,7 +294,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
+    (fsharp-mode omnisharp csharp-mode anaconda-mode git-timemachine projectile git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
