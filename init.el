@@ -102,7 +102,16 @@
 (use-package elm-mode
   :ensure t
   :config
-  (add-to-list 'company-backends 'company-elm))
+  (add-to-list 'company-backends 'company-elm)
+  (setq elm-interactive-command '("elm" "repl"))
+  (setq elm-reactor-command '("elm" "reactor"))
+  (setq elm-reactor-arguments '("--port" "8000"))
+  (setq elm-compile-command '("elm" "make"))
+  (setq elm-compile-arguments '("--output=elm.js" "--debug"))
+  (setq elm-package-command '("elm" "package"))
+  (setq elm-package-json "elm.json")
+  (remove-hook 'elm-mode-hook 'elm-indent-mode)
+  )
 
 (use-package csharp-mode
   :ensure t)
