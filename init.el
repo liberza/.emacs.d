@@ -255,6 +255,9 @@
 (use-package projectile
   :ensure t)
 
+(use-package neotree
+  :ensure t)
+
 (use-package evil-org
   :ensure t
   :after org
@@ -303,7 +306,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (fsharp-mode omnisharp csharp-mode anaconda-mode git-timemachine projectile git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
+    (neotree fsharp-mode omnisharp csharp-mode anaconda-mode git-timemachine projectile git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
