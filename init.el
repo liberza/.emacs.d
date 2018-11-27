@@ -43,14 +43,20 @@
              (evil-mode 1)
              (setq evil-emacs-state-modes nil)
              (setq evil-insert-state-modes nil)
-             (setq evil-motion-state-modes nil))
+             (setq evil-motion-state-modes nil)
+             ; Make movement keys work like they should
+             (define-key evil-normal-state-map (kbd "<remap> <evil-next-line") 'evil-next-visual-line)
+             (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line") 'evil-previous-visual-line)
+             ; Make horizontal movement cross lines
+             (setq-default evil-cross-lines t)
+             )
+        
 
 (use-package evil-collection
   :after evil
   :ensure t
   :config
   (evil-collection-init))
-
 
 (use-package smooth-scrolling
   :config
@@ -59,11 +65,8 @@
 
 (use-package graphviz-dot-mode)
 
-(use-package org-bullets
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
 (use-package magit)
+
 (use-package git-gutter
   :ensure t
   :config
@@ -84,7 +87,6 @@
   :defer t
   :config
   (add-to-list 'auto-mode-alist '("\\.ex\\'" . elixir-mode))
- 
   (add-to-list 'auto-mode-alist '("\\.exs\\'" . elixir-mode))
   (add-to-list 'auto-mode-alist '("\\.eex\\'" . elixir-mode)))
 
@@ -151,7 +153,6 @@
   (setq which-key-prefix-prefix "+")
   :diminish which-key-mode)
 
-
 (use-package general
   :ensure t
   :config 
@@ -179,6 +180,9 @@
    "b"   '(:ignore t :which-key "buffers")
    "bx"  '(kill-buffer-and-window :which-key "kill buffer / window")
    "bb"  '(ivy-switch-buffer :which-key "switch buffer")
+   "bn"  '(next-buffer :which-key "next buffer")
+   "bp"  '(previous-buffer :which-key "previous buffer")
+   "be"  '(eval-buffer :which-key "eval buffer")
    "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
    ;; Window
    "w"   '(:ignore t :which-key "window")
@@ -189,6 +193,10 @@
    "wj"  '(evil-window-down :which-key "down")
    "wk"  '(evil-window-up :which-key "up")
    "wl"  '(evil-window-right :which-key "right")
+   "wn"  '(evil-window-next :which-key "next window")
+   "wp"  '(evil-window-prev :which-key "previous window")
+   "wN"  '(evil-window-rotate-downwards :which-key "window rotate downwards")
+   "wP"  '(evil-window-rotate-upwards :which-key "window rotate upwards")
    ;; Git
    "g"   '(:ignore t :which-key "git")
    "gg"  '(magit-status :which-key "status")
@@ -218,45 +226,73 @@
    "oa"  '(org-agenda :which-key "org-agenda")
    "ol"  '(org-store-link :which-key "org-store-link")
    "ob"  '(org-switchb :which-key "org-switchb")
-   "e"  '(eval-buffer :which-key "eval-buffer")
+   "or"  '(org-refile :which-key "refile")
+   "oi"  '(org-display-inline-images :which-key "display images")
+   "p"  '(treemacs :which-key "treemacs")
    "ot"  '(ansi-term :which-key "open terminal")
    )
 )
 
+(use-package avy
+  :ensure t)
+
 (use-package org
-  :ensure org-plus-contrib)
+  :ensure org-plus-contrib
+  :config
+  (setq org-agenda-dim-blocked-tasks t)
+  (setq org-enforce-todo-dependencies t)
+  (setq org-agenda-start-on-weekday 0)
+  (setq org-agenda-files '("~/org/notes/inbox.org"
+                           "~/org/notes/projects.org"
+                           "~/org/notes/reminder.org"))
 
-(setq org-agenda-start-on-weekday 0)
+  (setq org-capture-templates '(("t" "Task [inbox]" entry
+                                 (file+olp+datetree "~/org/notes/inbox.org" "Tasks")
+                                 "* TODO %i%?" :tree-type week)
+                                ("n" "Note [inbox]" entry
+                                 (file+olp+datetree "~/org/notes/inbox.org" "Notes")
+                                 "* %i%?")
+                                ("r" "Reminder" entry
+                                 (file+headline "~/org/notes/reminder.org" "Reminders")
+                                 "* %i%? \n %U")))
 
-(setq org-agenda-files '("~/org/notes/inbox.org"
-                         "~/org/notes/projects.org"
-                         "~/org/notes/reminder.org"))
+  (setq org-refile-targets '(("~/org/notes/projects.org" :maxlevel . 5)
+                             ("~/org/notes/someday.org" :level . 2)
+                             ("~/org/notes/reminder.org" :maxlevel .2)))
 
-(setq org-capture-templates '(("t" "Task [inbox]" entry
-                               (file+olp+datetree "~/org/notes/inbox.org" "Tasks")
-                               "* TODO %i%?" :tree-type week)
-                              ("n" "Note [inbox]" entry
-                               (file+olp+datetree "~/org/notes/inbox.org" "Notes")
-                               "* %i%?")
-                              ("r" "Reminder" entry
-                               (file+headline "~/org/notes/reminder.org" "Reminders")
-                               "* %i%? \n %U")))
+  (setq org-refile-use-outline-path 'file)
 
-(setq org-refile-targets '(("~/org/notes/projects.org" :maxlevel . 3)
-                           ("~/org/notes/someday.org" :level . 1)
-                           ("~/org/notes/reminder.org" :maxlevel .2)))
+  (setq org-outline-path-complete-in-steps nil)
 
-(setq org-refile-use-outline-path 'file)
+  (setq org-todo-keywords '((sequence "TODO(t)"
+                                      "NEXT(n)"
+                                      "WORKING(W)"
+                                      "WAITING(w)"
+                                      "DELEGATED(D)"
+                                      "MAYBE(m)"
+                                      "|"
+                                      "DONE(d)"
+                                      "LATER(l)"
+                                      "CANCELLED(c)")))
 
-(setq org-outline-path-complete-in-steps nil)
+  (setq org-image-actual-width (/ (display-pixel-width) 3))
+  (require 'ox-md)
+  (require 'ox-org)
+  (require 'ox-latex)
+  (add-to-list 'org-latex-classes
+               '("beamer"
+                 "\\documentclass\[presentation\]\{beamer\}"
+                 ("\\section\{%s\}" . "\\section*\{%s\}")
+                 ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+                 ("\\subsubsection\{%s\}" . "\\subsubsection *\{%s\}")))
 
-(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "WORKING(W)" "|" "DONE(d)" "CANCELLED(c)")))
+  (setq org-agenda-files '("~org/projects.org"))
 
-(use-package projectile
-  :ensure t)
+  )
 
-(use-package neotree
-  :ensure t)
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 (use-package evil-org
   :ensure t
@@ -272,26 +308,29 @@
 (use-package org-download
   :ensure t)
 
-(setq org-image-actual-width (/ (display-pixel-width) 3))
 ; Overwrite some evil-org keys
 
 ; configuration
 ;(evil-leader/set-key-for-mode 'org-mode
 ;                              "oI" 'org-display-inline-images)
 
+(use-package projectile
+  :ensure t)
+
+
 (setq my-preferred-font
-      (cond ((eq system-type 'windows-nt) "Source Code Variable-10")
+      (cond ((eq system-type 'windows-nt) "Iosevka Medium-10.5")
             ((eq system-type 'gnu/linux) "Iosevka-13")
             (t nil)))
 
 (when my-preferred-font
   (set-frame-font my-preferred-font nil t))
 
-(setq js-indent-level 4)
-(setq tab-width 4)
-(setq default-tab-width 4)
+(setq-default js-indent-level 4)
+(setq-default tab-width 4)
+(setq-default default-tab-width 4)
 (setq-default indent-tabs-mode nil)
-(setq indent-tabs-mode nil)
+(setq-default tab-stop-list (number-sequence 4 120 4))
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 (setq show-paren-priority -50)
@@ -306,7 +345,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (neotree fsharp-mode omnisharp csharp-mode anaconda-mode git-timemachine projectile git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
+    (neotree avy evil-org fsharp-mode omnisharp csharp-mode anaconda-mode git-timemachine projectile git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
