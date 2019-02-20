@@ -182,7 +182,7 @@
    ;"pf"  '(helm-find-files :which-key "find files")
    ;; Buffers
    "b"   '(:ignore t :which-key "buffers")
-   "bx"  '(kill-buffer-and-window :which-key "kill buffer / window")
+   "bx"  '(kill-buffer :which-key "kill buffer")
    "bb"  '(ivy-switch-buffer :which-key "switch buffer")
    "bn"  '(next-buffer :which-key "next buffer")
    "bp"  '(previous-buffer :which-key "previous buffer")
@@ -266,7 +266,7 @@
    "apft" '(alchemist-project-find-test :which-key "find test")
    "apfd" '(alchemist-project-find-dir :which-key "find dir")
    "apfl" '(alchemist-project-find-lib :which-key "find lib")
-   "aps"  '(alchemist-toggle-file-and-tests :which-key "toggle file and tests")
+   "aps"  '(alchemist-project-toggle-file-and-tests :which-key "toggle file and tests")
    "apo"  '(alchemist-project-toggle-file-and-tests-other-window :which-key "toggle file and tests other window")
    "apt"  '(alchemist-project-run-tests-for-current-file :which-key "run tests for file")
    "ai"   '(:ignore t :which-key "IEx")
@@ -304,6 +304,13 @@
    "aorc" '(alchemist-macroexpand-current-region :which-key "current region")
    "aoro" '(alchemist-macroexpand-once-current-region :which-key "once current region")
    "aorp" '(alchemist-macroexpand-once-print-current-region :which-key "once print current region")
+   ;; Eyebrowse
+   "0"    '(eyebrowse-switch-to-window-config-0 :which-key "workspace 0")
+   "1"    '(eyebrowse-switch-to-window-config-1 :which-key "workspace 1")
+   "2"    '(eyebrowse-switch-to-window-config-2 :which-key "workspace 2")
+   "3"    '(eyebrowse-switch-to-window-config-3 :which-key "workspace 3")
+   "4"    '(eyebrowse-switch-to-window-config-4 :which-key "workspace 4")
+   "5"    '(eyebrowse-switch-to-window-config-5 :which-key "workspace 5")
    ;; Other
    "o"    '(:ignore t :which-key "org")
    "oc"   '(counsel-org-capture :which-key "org-capture")
@@ -402,6 +409,13 @@
 (use-package projectile
   :ensure t)
 
+(use-package notmuch)
+
+(use-package eyebrowse
+  :diminish eyebrowse-mode
+  :config
+  (setq eyebrowse-new-workspace t)
+  (eyebrowse-mode t))
 
 (setq my-preferred-font
       (cond ((eq system-type 'windows-nt) "Iosevka Medium-10.5")
@@ -430,7 +444,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (neotree avy evil-org fsharp-mode omnisharp csharp-mode anaconda-mode git-timemachine projectile git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
+    (eyebrowse notmuch org-mu4e neotree avy evil-org fsharp-mode omnisharp csharp-mode anaconda-mode git-timemachine projectile git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
