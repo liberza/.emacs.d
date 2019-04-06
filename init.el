@@ -27,7 +27,7 @@
 (use-package doom-themes
   :ensure t
   :defer t
-  :init (load-theme 'doom-one t))
+  :init (load-theme 'doom-Iosvkem t))
 
 (use-package evil
              :init
@@ -86,13 +86,10 @@
 (use-package elixir-mode
   :defer t)
 
-(use-package alchemist
-  :defer t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.ex\\'" . elixir-mode))
-  (add-to-list 'auto-mode-alist '("\\.exs\\'" . elixir-mode))
-  (add-to-list 'auto-mode-alist '("\\.eex\\'" . elixir-mode))
-  (setq alchemist-goto-elixir-source-dir "~/src/elixir"))
+(use-package eglot)
+
+(use-package exunit
+  :ensure t)
 
 (use-package company
   :defer t
@@ -147,6 +144,12 @@
 
 (use-package counsel :ensure t)
 
+(use-package treemacs
+  :ensure t)
+
+(use-package treemacs-evil
+  :ensure t)
+
 ;; Which Key
 (use-package which-key
   :ensure t
@@ -182,12 +185,30 @@
    ;"pf"  '(helm-find-files :which-key "find files")
    ;; Buffers
    "b"   '(:ignore t :which-key "buffers")
+   "bi"  '(ibuffer :which-key "ibuffer")
    "bx"  '(kill-buffer :which-key "kill buffer")
    "bb"  '(ivy-switch-buffer :which-key "switch buffer")
    "bn"  '(next-buffer :which-key "next buffer")
    "bp"  '(previous-buffer :which-key "previous buffer")
    "be"  '(eval-buffer :which-key "eval buffer")
    "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+   ; Projectile
+   "p"   '(:ignore t :which-key "projectile")
+   "pi"  '(projectile-ibuffer :which-key "ibuffer")
+   "pb"  '(projectile-switch-to-buffer :which-key "switch buffer")
+   "pn"  '(projectile-next-project-buffer :which-key "next buffer")
+   "pp"  '(projectile-previous-project-buffer :which-key "prev buffer")
+   "pd"  '(projectile-dired :which-key "dired")
+   "pf"  '(projectile-find-file-in-known-projects :which-key "find file")
+   "pm"  '(:ignore t :which-key "manage projects")
+   "pmc" '(projectile-configure-project :which-key "configure project")
+   "pma" '(projectile-add-known-project :which-key "add known project")
+   "pmr" '(projectile-remove-known-project :which-key "remove known project")
+   "pt"  '(:ignore t :which-key "tests")
+   "ptr"  '(projectile-test-project :which-key "run project tests")
+   "ptf"  '(projectile-find-test-file :which-key "find test file")
+   "ptt"  '(projectile-toggle-between-implementation-and-test :which-key "toggle test")
+   "pr"  '(projectile-run-project :which-key "run project")
    ;; Window
    "w"   '(:ignore t :which-key "window")
    "w/"  '(split-window-right :which-key "split right")
@@ -223,87 +244,6 @@
    ;; Avy
    "l"    '(evil-avy-goto-line :which-key "goto-line")
    "c"    '(evil-avy-goto-char :which-key "goto-char")
-   ;; Alchemist
-   "a"    '(:ignore t :which-key "alchemist")
-   "am"   '(:ignore t :which-key "mix")
-   "amm"  '(alchemist-mix :which-key "mix")
-   "amc"  '(alchemist-mix-compile :which-key "mix compile")
-   "amr"  '(alchemist-mix-run :which-key "mix run")
-   "ah"   '(:ignore t :which-key "hex")
-   "ahr"  '(alchemist-hex-releases :which-key "hex releases")
-   "ahi"  '(alchemist-hex-info :which-key "hex info")
-   "ah.i" '(alchemist-hex-info-at-point :which-key "hex info at point")
-   "ah.r" '(alchemist-hex-releases-at-point :which-key "hex releases at point")
-   "ahs"  '(alchemist-hex-search :which-key "hex search")
-   "at"   '(:ignore t :which-key "testing")
-   "att"  '(alchemist-mix-test :which-key "mix test")
-   "atr"  '(alchemist-mix-rerun-last-test :which-key "mix rerun last test")
-   "atf"  '(alchemist-mix-test-file :which-key "mix test file")
-   "atb"  '(alchemist-mix-test-this-buffer :which-key "mix test buffer")
-   "at."  '(alchemist-mix-test-at-point :which-key "mix test at point")
-   "atd"  '(alchemist-test-toggle-test-report-display :which-key "toggle test report display")
-   "ac"   '(:ignore t :which-key "compilation")
-   "acc"  '(alchemist-compile :which-key "compile")
-   "acf"  '(alchemist-compile-file :which-key "compile file")
-   "acb"  '(alchemist-compile-buffer :which-key "compile buffer")
-   "ae"   '(:ignore t :which-key "execution")
-   "aee"  '(alchemist-execute :which-key "execute")
-   "aef"  '(alchemist-execute-file :which-key "execute file")
-   "aeb"  '(alchemist-execute-buffer :which-key "execute buffer")
-   "ah"   '(:ignore t :which-key "help")
-   "ahh"  '(alchemist-help :which-key "help")
-   "ahi"  '(alchemist-help-history :which-key "help history")
-   "ah."  '(alchemist-help-search-at-point :which-key "help search at point")
-   "ahr"  '(alchemist-refcard :which-key "alchemist refcard")
-   "ad"   '(:ignore t :which-key "definition lookup")
-   "ad."  '(alchemist-goto-definition-at-point :which-key "goto definition at point")
-   "adb"  '(alchemist-goto-jump-back :which-key "goto jump back")
-   "adp"  '(alchemist-goto-jump-to-previous-def-symbol :which-key "jump to prev def symbol")
-   "adn"  '(alchemist-goto-jump-to-next-def-symbol :which-key "jump to next def symbol")
-   "adl"  '(alchemist-goto-list-symbol-definitions :which-key "list symbol definitions")
-   "ap"   '(:ignore t :which-key "project")
-   "apf"  '(:ignore t :which-key "find")
-   "apft" '(alchemist-project-find-test :which-key "find test")
-   "apfd" '(alchemist-project-find-dir :which-key "find dir")
-   "apfl" '(alchemist-project-find-lib :which-key "find lib")
-   "aps"  '(alchemist-project-toggle-file-and-tests :which-key "toggle file and tests")
-   "apo"  '(alchemist-project-toggle-file-and-tests-other-window :which-key "toggle file and tests other window")
-   "apt"  '(alchemist-project-run-tests-for-current-file :which-key "run tests for file")
-   "ai"   '(:ignore t :which-key "IEx")
-   "air"  '(alchemist-iex-run :which-key "iex run")
-   "aip"  '(alchemist-iex-project-run :which-key "iex project run")
-   "ais"  '(:ignore t :which-key "iex send")
-   "aisl" '(alchemist-iex-send-current-line :which-key "send line")
-   "aisc" '(alchemist-iex-send-current-line-and-go :which-key "send line and go")
-   "aisr" '(alchemist-iex-send-region :which-key "send region")
-   "aism" '(alchemist-iex-send-region-and-go :which-key "send region and go")
-   "aib"  '(alchemist-iex-compile-this-buffer :which-key "iex compile this buffer")
-   "av"   '(:ignore t :which-key "eval")
-   "avl"  '(:ignore t :which-key "eval line")
-   "avll" '(alchemist-eval-current-line :which-key "eval line")
-   "avlp" '(alchemist-eval-print-current-line :which-key "eval line (print)")
-   "avlq" '(alchemist-eval-quoted-current-line :which-key "eval line (quoted)")
-   "avlo" '(alchemist-eval-print-quoted-current-line :which-key "eval line (print quoted)")
-   "avr"  '(:ignore t :which-key "eval region")
-   "avrl" '(alchemist-eval-current-region :which-key "eval region")
-   "avrp" '(alchemist-eval-print-current-region :which-key "eval region (print)")
-   "avrq" '(alchemist-eval-quoted-current-region :which-key "eval region (quoted)")
-   "avro" '(alchemist-eval-print-quoted-current-region :which-key "eval region (print quoted)")
-   "avb"  '(:ignore t :which-key "eval buffer")
-   "avbl" '(alchemist-eval-current-buffer :which-key "eval buffer")
-   "avbp" '(alchemist-eval-print-current-buffer :which-key "eval buffer (print)")
-   "avbq" '(alchemist-eval-quoted-current-buffer :which-key "eval buffer (quoted)")
-   "avbo" '(alchemist-eval-print-quoted-current-buffer :which-key "eval buffer (print quoted)")
-   "avq"  '(alchemist-eval-close-popup :which-key "close eval popup")
-   "ao"   '(:ignore t :which-key "macroexpand")
-   "aol"  '(:ignore t :which-key "current line")
-   "aolc" '(alchemist-macroexpand-current-line :which-key "current line")
-   "aolo" '(alchemist-macroexpand-once-current-line :which-key "once current line")
-   "aolp" '(alchemist-macroexpand-once-print-current-line :which-key "once print current line")
-   "aor"  '(:ignore t :which-key "current region")
-   "aorc" '(alchemist-macroexpand-current-region :which-key "current region")
-   "aoro" '(alchemist-macroexpand-once-current-region :which-key "once current region")
-   "aorp" '(alchemist-macroexpand-once-print-current-region :which-key "once print current region")
    ;; Eyebrowse
    "0"    '(eyebrowse-switch-to-window-config-0 :which-key "workspace 0")
    "1"    '(eyebrowse-switch-to-window-config-1 :which-key "workspace 1")
@@ -311,7 +251,13 @@
    "3"    '(eyebrowse-switch-to-window-config-3 :which-key "workspace 3")
    "4"    '(eyebrowse-switch-to-window-config-4 :which-key "workspace 4")
    "5"    '(eyebrowse-switch-to-window-config-5 :which-key "workspace 5")
+   ;; Ace
+   "a"    '(ace-select-window t :which-key "ace")
    ;; Other
+   "h"    '(:ignore t :which-key "help and errors")
+   "hh"   '(display-local-help :which-key "display-local-help")
+   "hn"   '(flymake-goto-next-error :which-key "next error")
+   "hp"   '(flymake-goto-prev-error :which-key "prev error")
    "o"    '(:ignore t :which-key "org")
    "oc"   '(counsel-org-capture :which-key "org-capture")
    "oa"   '(org-agenda :which-key "org-agenda")
@@ -319,8 +265,8 @@
    "ob"   '(org-switchb :which-key "org-switchb")
    "or"   '(org-refile :which-key "refile")
    "oi"   '(org-display-inline-images :which-key "display images")
-   "p"    '(neotree :which-key "neotree")
-   "t"    '(ansi-term :which-key "open terminal")
+   "t"    '(treemacs :which-key "treemacs")
+   "y"    '(ansi-term :which-key "open terminal")
    "f"   '(find-file :which-key "find file")
    )
 )
@@ -379,7 +325,8 @@
                  ("\\subsubsection\{%s\}" . "\\subsubsection *\{%s\}")))
 
   (setq org-agenda-files '("~org/projects.org"))
-
+  (add-hook 'org-mode-hook #'visual-line-mode)
+  (add-hook 'org-mode-hook #'org-indent-mode)
   )
 
 (use-package org-bullets
@@ -433,7 +380,7 @@
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 (setq show-paren-priority -50)
-(set-face-attribute 'show-paren-match nil :weight 'normal :foreground "tomato3" :background "default")
+;(set-face-attribute 'show-paren-match nil :weight 'normal :foreground "tomato3" :background "default")
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
 
@@ -444,7 +391,10 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (eyebrowse notmuch org-mu4e neotree avy evil-org fsharp-mode omnisharp csharp-mode anaconda-mode git-timemachine projectile git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist))))
+    (treemacs-evil treemacs exunit eglot eyebrowse notmuch org-mu4e neotree avy evil-org fsharp-mode omnisharp csharp-mode anaconda-mode git-timemachine projectile git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist)))
+ '(send-mail-function (quote smtpmail-send-it))
+ '(smtpmail-smtp-server "smtp.zoho.com")
+ '(smtpmail-smtp-service 587))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

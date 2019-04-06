@@ -3,3 +3,4 @@ ls
 ls
 ls
 ls
+iex -S mix
