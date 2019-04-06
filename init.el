@@ -138,6 +138,8 @@
   :init (ivy-mode 1)
   :config
   (setq ivy-initial-inputs-alist nil)
+  (define-key ivy-minibuffer-map (kbd "C-k") #'ivy-previous-line)
+  (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-next-line)
   ;(setq ivy-use-virtual-buffers t)
   ;(setq ivy-height 20)
   ;(setq ivy-count-format "(%d/%d) ")
