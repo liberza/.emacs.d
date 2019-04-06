@@ -389,9 +389,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ace-window-display-mode t)
  '(package-selected-packages
    (quote
-    (treemacs-evil treemacs exunit eglot eyebrowse notmuch org-mu4e neotree avy evil-org fsharp-mode omnisharp csharp-mode anaconda-mode git-timemachine projectile git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist)))
+    (ivy company elixir-mode evil all-the-icons treemacs-evil treemacs exunit eglot eyebrowse notmuch org-mu4e neotree avy evil-org fsharp-mode omnisharp csharp-mode anaconda-mode git-timemachine projectile git-gutter elm-mode rust-mode org-download org-plus-contrib ox-taskjuggler evil-collection which-key use-package smooth-scrolling org-bullets magit graphviz-dot-mode general doom-themes diminish counsel alchemist)))
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "smtp.zoho.com")
  '(smtpmail-smtp-service 587))
