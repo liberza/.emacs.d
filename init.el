@@ -84,9 +84,11 @@
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
 (use-package elixir-mode
+  :ensure t
   :defer t)
 
-(use-package eglot)
+(use-package eglot
+  :ensure t)
 
 (use-package exunit
   :ensure t)
